@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Register a new account</title>
+    </head>
+    <body>
+        <h1>Sign up!</h1>
+        <form method = "POST" action ="{% url 'signup' %}">
+            {% csrf_token %}
+            Username:
+            <br/>
+            <input type = "text" name = "username"/>
+            <br/>
+            Password:
+            <br/>
+            <input type = "password" name = "password1"/>
+            <br/>
+            Confirm password:
+            <br/>
+            <input type = "password" name = "password2"/>
+            <br/>
+            <br/>
+            <input type = "submit" value = "Sign up!"/>
+        </form>
+    </body>
+</html>
