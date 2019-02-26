@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% extends  'base.html '%}
+{% block content %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <h1>Posts by {{author.username}}</h1>
+        {% for post in posts.all %}
+        <table>
+            <tr>
+                <td style="padding-right: 20px">
+                    <a class="nav-item nav-link" href="#"
+                       onCLick="document.getElementById('upvote{{post.id}}').submit()">
+                        <i class="fas fa-sort-up"></i></a> <br/>
+                    {{post.votes_total}}<br/>
+                    <a class="nav-item nav-link" href="#"
+                       onCLick="document.getElementById('downvote{{post.id}}').submit()">
+                        <i class="fas fa-sort-down"></i></a> <br/>
+                </td>
+                <td>
+                    <a href="{{post.url}}">{{post.title}}</a><br/>
+                    {{post.pub_date_formatted}} by {{post.author.username}}
+                </td>
+            </tr>
+        </table>
+
+        <br/>
+
+        <form method="POST" action="{% url 'posts:upvote' post.id%}" id='upvote{{ post.id }}'>
+            {% csrf_token %}
+            <input type="hidden"/>
+        </form>
+
+        <form method="POST" action="{% url 'posts:downvote' post.id%}" id='downvote{{post.id}}'>
+            {% csrf_token %}
+            <input type="hidden"/>
+        </form>
+        {% endfor %}
+
+    </body>
+    {% endblock %}
+</html>

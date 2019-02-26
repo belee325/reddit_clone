@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 
 # Create your views here.
@@ -34,8 +34,15 @@ def login_view(request):
         user = authenticate(username=username, password=password)
         if user:
             login(request, user)
-            return render(request, 'accounts/login.html', )
+            if 'next' in request.POST:
+                return redirect(request.POST['next'])
+
+            return redirect('home')
         else:
             return render(request, 'accounts/login.html', {'error': 'Invalid username or password!'})
     else:
         return render(request, 'accounts/login.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('home')

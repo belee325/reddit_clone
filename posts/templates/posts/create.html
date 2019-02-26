@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% extends  'base.html '%}
+{% block content %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Register a new account</title>
+    </head>
+    <body>
+        <h1>New post</h1>
+        {%if error%}
+        <h3>{{error}}</h3>
+        {%endif%}
+
+        <form method="POST" action="{% url 'posts:create' %}">
+            {% csrf_token %}
+            Title:
+            <br/>
+            <input type="text" name="title"/>
+            <br/>
+            URL:
+            <br/>
+            <input type="text" name="url"/>
+            <br/>
+            <br/>
+            <input type="submit" value="Post"/>
+        </form>
+    </body>
+{% endblock %}
+</html>
